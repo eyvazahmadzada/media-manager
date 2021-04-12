@@ -1,28 +1,51 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <button v-on:click="createItem">Create item</button>
+    <button v-on:click="updateItem">Update item</button>
+    <button v-on:click="deleteItem">Delete item</button>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/HelloWorld.vue';
+import axios from './axios';
 
 export default {
   name: 'App',
   components: {
     HelloWorld
+  },
+  mounted: () => {
+    axios.get("/get-items.php")
+      .then(data => console.log(data))
+      .catch(err => console.log(err)); 
+  },
+  methods: {
+    createItem: () => {
+      axios.post("/create-item.php", {
+        name: "test2",
+        x: 15,
+        y: 25,
+        width: 50,
+        height: 100
+      }).then();
+    },
+    updateItem: () => {
+      axios.put("/update-item.php", {
+        id: 48,
+        name: "Eyvaz",
+        x: 100,
+        y: 100,
+        width: 75,
+        height: 90
+      }).then();
+    },
+    deleteItem: () => {
+      axios.delete("/delete-item.php", { 
+        data: { id: 50 } 
+      }).then(data => console.log(data));
+    }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
