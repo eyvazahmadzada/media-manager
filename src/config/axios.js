@@ -7,8 +7,7 @@ if (process.env.NODE_ENV === "production") {
   baseURL = "server/api/";
 }
 
-const instance = axios.create({
-  baseURL
-});
+// Creating axios instance with baseURL
+const instance = axios.create({ baseURL });
 
 export default instance;
