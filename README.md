@@ -2,7 +2,7 @@
 
 ### Setup
 ```
-Please run npm run serve to see the result
+Please run "npm run serve" to see the result
 ```
 
 ### RULES:
