@@ -1,24 +1,19 @@
-# media-manager
+# Media manager
 
-## Project setup
+### Setup
 ```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
+Please run npm run serve to see the result
 ```
 
-### Compiles and minifies for production
+### RULES:
 ```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
+Upload an image: Press on the SPACE key
+Create a rectangle: Click on the screen
+Resize an item: Use resizers
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### NOTES:
+```
+Because of the time limitation, I couldn't finish the config part of the application (Connecting to MySQL using a form)
+Please, add your MySQL configuration manually in the public/server/config/Database.php file.
+```
