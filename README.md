@@ -2,8 +2,10 @@
 
 ### NOTES:
 ```
-Because of the time limitation, I couldn't finish the config part of the application (Connecting to MySQL using a form)
-Please, add your MySQL configuration manually in the public/server/config/Database.php file and import "items.sql" file to your database.
+Because of the time limitation, I couldn't finish the config part of 
+the application (Connecting to MySQL using a form)
+Please, add your MySQL configuration manually in the public/server/config/Database.php file 
+and import "items.sql" file to your database.
 ```
 
 ### Setup
