@@ -1,7 +1,14 @@
 <template>
-  <div @mousedown="mouseDown" class="item" ref="item">
+  <div 
+    @mousedown="mouseDown" 
+    class="item"
+  >
     <div v-for="direction in directions" :key="direction">
-      <ItemResizer @resizing="setIsResizing" :direction="direction" />
+      <ItemResizer 
+        @resizing="setIsResizing" 
+        @onPropertiesUpdate="updateProperties" 
+        :direction="direction" 
+      />
     </div>
   </div>
 </template>
@@ -11,56 +18,101 @@ import ItemResizer from './ItemResizer';
 
 export default {
   name: 'Item',
+  props: { 
+    id: Number, 
+    img: String, 
+    initialX: Number, 
+    initialY: Number, 
+    initialWidth: Number, 
+    initialHeight: Number 
+  },
   components: { ItemResizer },
   data: function() {
     return {
       directions: ["top-left", "top-right", "bottom-left", "bottom-right"],
       isResizing: false,
-      x: 0,
-      y: 0,
-      width: 0,
-      height: 0
+      x: this.initialX,
+      y: this.initialY,
+      width: this.initialWidth,
+      height: this.initialHeight,
+      clientX: 0,
+      clientY: 0
     }
+  },
+  mounted: function() {
+    // Dynamically add image or background color
+    this.$el.style.background = this.img === '' ? 
+      '#E4B645' : 
+      `url('${window.location}img/${this.img}')`;
+    this.updateProperties(this.x, this.y, this.width, this.height);
   },
   methods: {
     setIsResizing: function(resizing) {
       this.isResizing = resizing;
     },
     // A Utility function to update item position info
-    updatePosition: function(updatedX, updatedY) {
-      this.x = updatedX;
-      this.y = updatedY;
+    setClientPosition: function(x, y) {
+      this.clientX = x;
+      this.clientY = y;
+    },
+    // A utility function to update properties of item
+    updateProperties: function(left, top, width, height) {
+      if(left) { 
+        this.x = left;
+        this.$el.style.left = left + "px"; 
+      }
+      if(top) { 
+        this.y = top;
+        this.$el.style.top = top + "px"; 
+      }
+      if(width) { 
+        this.width = width;
+        this.$el.style.width = width + "px"; 
+      }
+      if(height) { 
+        this.height = height;
+        this.$el.style.height = height + "px"; 
+      }
     },
     mouseDown: function(e) {
       // Add window mouse event listeners
       window.addEventListener('mousemove', this.mouseMove);
       window.addEventListener('mouseup', this.mouseUp);
 
-      this.updatePosition(e.clientX, e.clientY);
+      this.setClientPosition(e.clientX, e.clientY);
     },
     mouseMove: function(e) {
       if(!this.isResizing) {
         // Update item position on mouse move
-        this.x -= e.clientX;
-        this.y -= e.clientY;
-
-        // Get item element from DOM
-        const itemEl = this.$el;
+        this.clientX -= e.clientX;
+        this.clientY -= e.clientY;
 
         // Get item element position info
-        const rect = itemEl.getBoundingClientRect();
+        const rect = this.$el.getBoundingClientRect();
 
-        // Update item position in DOM
-        itemEl.style.left = rect.left - this.x + "px";
-        itemEl.style.top = rect.top - this.y + "px";
+        this.updateProperties(
+          rect.left - this.clientX,
+          rect.top - this.clientY,
+          null,
+          null
+        );
 
-        this.updatePosition(e.clientX, e.clientY);
+        this.setClientPosition(e.clientX, e.clientY);
       }
     },
     mouseUp: function() {
       // Remove window mouse event listeners
       window.removeEventListener("mousemove", this.mouseMove);
       window.removeEventListener("mouseup", this.mouseUp);
+
+      // Send item properties to parent
+      this.$emit("onPropertiesUpdate", {
+        id: this.id,
+        x: this.x,
+        y: this.y,
+        width: this.width,
+        height: this.height
+      });
     }
   }
 }
@@ -74,7 +126,8 @@ export default {
     position: absolute;
     min-width: 50px;
     min-height: 50px;
-    background-color: #E4B645;
+    background-repeat: no-repeat !important;
+    background-size: 100% 100% !important;
   }
 </style>
 

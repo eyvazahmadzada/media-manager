@@ -21,7 +21,8 @@
     // Check if data is submitted
     if($data) {
         // Assign values
-        $item->name = $data->name;
+        $item->id = $data->id;
+        $item->img = $data->img;
         $item->x = $data->x;
         $item->y = $data->y;
         $item->width = $data->width;
@@ -31,6 +32,6 @@
         if($item->createItem()) {
             echo json_encode(array('message' => 'Item Created'));
         } else {
-            echo json_encode(array('message' => 'An Error Occured'));
+            echo json_encode(array('error' => 'An Error Occured'));
         }
     }

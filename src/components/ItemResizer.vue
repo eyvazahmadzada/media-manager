@@ -8,31 +8,28 @@ export default {
   props: { direction: String },
   data: function() {
     return {
-      x: 0,
-      y: 0
+      clientX: 0,
+      clientY: 0
     }
   },
   methods: {
     setIsResizing: function(resizing) {
       this.$emit("resizing", resizing);
     },
-    // A Utility function to update resizer position info
-    updatePosition: function(updatedX, updatedY) {
-      this.x = updatedX;
-      this.y = updatedY;
+    // Send updated info to parent
+    updateProperties: function(left, top, width, height) {
+      this.$emit("onPropertiesUpdate", left, top, width, height);
     },
-    // A utility function to update properties of item in DOM
-    updateItemProperties: function(item, top, left, width, height) {
-      if(width) { item.style.width = width + "px"; }
-      if(height) { item.style.height = height + "px"; }
-      if(top) { item.style.top = top + "px"; }
-      if(left) { item.style.left = left + "px"; }
+    // A Utility function to update resizer position info
+    setClientPosition: function(x, y) {
+      this.clientX = x;
+      this.clientY = y;
     },
     mouseDown: function(e) {
       // Send resizing info to item
       this.setIsResizing(true);
 
-      this.updatePosition(e.clientX, e.clientY);
+      this.setClientPosition(e.clientX, e.clientY);
 
       // Add window mouse event listeners
       window.addEventListener('mousemove', this.mouseMove);
@@ -49,46 +46,42 @@ export default {
       // Update item position on resizer move
       switch(this.direction) {
         case "top-left":
-          this.updateItemProperties(
-            itemEl,
-            rect.top - (this.y - e.clientY),
-            rect.left - (this.x - e.clientX),
-            rect.width + (this.x - e.clientX),
-            rect.height + (this.y - e.clientY)
+          this.updateProperties(
+            rect.left - (this.clientX - e.clientX),
+            rect.top - (this.clientY - e.clientY),
+            rect.width + (this.clientX - e.clientX),
+            rect.height + (this.clientY - e.clientY)
           );
           break;
         case "top-right":
-          this.updateItemProperties(
-            itemEl,
-            rect.top - (this.y - e.clientY),
+          this.updateProperties(
             null,
-            rect.width - (this.x - e.clientX),
-            rect.height + (this.y - e.clientY)
+            rect.top - (this.clientY - e.clientY),
+            rect.width - (this.clientX - e.clientX),
+            rect.height + (this.clientY - e.clientY)
           );
           break;
         case "bottom-left":
-          this.updateItemProperties(
-            itemEl,
+          this.updateProperties(
+            rect.left - (this.clientX - e.clientX),
             null,
-            rect.left - (this.x - e.clientX),
-            rect.width + (this.x - e.clientX),
-            rect.height - (this.y - e.clientY)
+            rect.width + (this.clientX - e.clientX),
+            rect.height - (this.clientY - e.clientY)
           );
           break;
         case "bottom-right":
-          this.updateItemProperties(
-            itemEl,
+          this.updateProperties(
             null,
             null,
-            rect.width - (this.x - e.clientX),
-            rect.height - (this.y - e.clientY)
+            rect.width - (this.clientX - e.clientX),
+            rect.height - (this.clientY - e.clientY)
           );
           break;
         default: 
           return;
       }
 
-      this.updatePosition(e.clientX, e.clientY);
+      this.setClientPosition(e.clientX, e.clientY);
     },
     mouseUp: function() {
       // Remove window mouse event listeners

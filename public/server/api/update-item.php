@@ -22,7 +22,7 @@
     if($data) {
         // Assign values
         $item->id = $data->id;
-        $item->name = $data->name;
+        $item->img = $data->img;
         $item->x = $data->x;
         $item->y = $data->y;
         $item->width = $data->width;
@@ -32,6 +32,6 @@
         if($item->updateItem()) {
             echo json_encode(array('message' => 'Item Updated'));
         } else {
-            echo json_encode(array('message' => 'An Error Occured'));
+            echo json_encode(array('error' => 'An Error Occured'));
         }
     }

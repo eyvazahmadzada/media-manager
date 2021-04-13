@@ -29,12 +29,12 @@
             extract(($row));
 
             $item = array(
-                'id' => $id,
-                'name' => $name,
-                'x' => $x,
-                'y' => $y,
-                'width' => $width,
-                'height' => $height
+                'id' => intval($id),
+                'img' => $img,
+                'x' => floatval($x),
+                'y' => floatval($y),
+                'width' => floatval($width),
+                'height' => floatval($height)
             );
 
             // Push to $items_arr

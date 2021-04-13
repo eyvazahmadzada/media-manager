@@ -27,6 +27,6 @@
         if($item->deleteItem()) {
             echo json_encode(array('message' => 'Item Deleted'));
         } else {
-            echo json_encode(array('message' => 'An Error Occured'));
+            echo json_encode(array('error' => 'An Error Occured'));
         }
     }

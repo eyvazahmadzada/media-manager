@@ -6,7 +6,7 @@
 
         //POST Properties
         public $id;
-        public $name;
+        public $img;
         public $x;
         public $y;
         public $width;
@@ -34,20 +34,22 @@
         // Create Item
         public function createItem() {
             // Query
-            $query = 'INSERT INTO ' . $this->table . ' VALUES(NULL, :name, :x, :y, :width, :height)';
+            $query = 'INSERT INTO ' . $this->table . ' VALUES(:id, :img, :x, :y, :width, :height)';
 
             // Prepare statement
             $stmt = $this->connection->prepare($query);
 
             // Security measures
-            $this->name = htmlspecialchars(strip_tags($this->name));
+            $this->id = htmlspecialchars(strip_tags($this->id));
+            $this->img = htmlspecialchars(strip_tags($this->img));
             $this->x = htmlspecialchars(strip_tags($this->x));
             $this->y = htmlspecialchars(strip_tags($this->y));
             $this->width = htmlspecialchars(strip_tags($this->width));
             $this->height = htmlspecialchars(strip_tags($this->height));
 
             //Bind params
-            $stmt->bindParam(':name', $this->name);
+            $stmt->bindParam(':id', $this->id);
+            $stmt->bindParam(':img', $this->img);
             $stmt->bindParam(':x', $this->x);
             $stmt->bindParam(':y', $this->y);
             $stmt->bindParam(':width', $this->width);
@@ -68,7 +70,7 @@
         public function updateItem() {
             // Query
             $query = 'UPDATE ' . $this->table . ' 
-                SET name = :name, x = :x, y = :y, width = :width, height = :height
+                SET x = :x, y = :y, width = :width, height = :height
                 WHERE id = :id';
 
             // Prepare statement
@@ -76,7 +78,6 @@
 
             // Security measures
             $this->id = htmlspecialchars(strip_tags($this->id));
-            $this->name = htmlspecialchars(strip_tags($this->name));
             $this->x = htmlspecialchars(strip_tags($this->x));
             $this->y = htmlspecialchars(strip_tags($this->y));
             $this->width = htmlspecialchars(strip_tags($this->width));
@@ -84,7 +85,6 @@
 
             //Bind params
             $stmt->bindParam(':id', $this->id);
-            $stmt->bindParam(':name', $this->name);
             $stmt->bindParam(':x', $this->x);
             $stmt->bindParam(':y', $this->y);
             $stmt->bindParam(':width', $this->width);

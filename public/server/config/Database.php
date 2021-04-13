@@ -9,8 +9,15 @@
 
         // DB Connect
         public function connect() {
-            $this->connection = null;
+            // Start session
+            session_start();  
 
+            if (isset($_SESSION["host"]) && isset($_SESSION["username"]) && isset($_SESSION["password"])) {
+                $this->host = $_SESSION["host"];
+                $this->username = $_SESSION["username"];
+                $this->password = $_SESSION["password"];
+            }
+            $this->connection = null;
             try {
                 $this->connection = new PDO(
                     'mysql:host=' . $this->host . ';dbname=' . $this->db_name, 
