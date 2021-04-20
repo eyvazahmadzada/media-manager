@@ -10,7 +10,7 @@ and import "items.sql" file to your database.
 
 ### Setup
 ```
-Please run "npm run serve" to see the result
+Please run "npm run build" to see the result
 ```
 
 ### RULES:
