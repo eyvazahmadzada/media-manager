@@ -2,13 +2,15 @@
 
 ### NOTES:
 ```
-Because of the time limitation, I couldn't finish the config part of the application (Connecting to MySQL using a form)
-Please, add your MySQL configuration manually in the public/server/config/Database.php file and import "items.sql" file to your database.
+Because of the time limitation, I couldn't finish the config part of 
+the application (Connecting to MySQL using a form)
+Please, add your MySQL configuration manually in the public/server/config/Database.php file 
+and import "items.sql" file to your database.
 ```
 
 ### Setup
 ```
-Please run "npm run serve" to see the result
+Please run "npm run build" and open the directory "build/" in your server to see the result
 ```
 
 ### RULES:
