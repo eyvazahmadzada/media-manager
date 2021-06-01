@@ -155,7 +155,7 @@ export default {
       }
 
       // Defaults for the item
-      newItem.id = Math.random() * 10000;
+      newItem.id = Math.floor(Math.random() * 10000);
       newItem.width = this.initialSize;
       newItem.height = this.initialSize;
       newItem.img = imageName;
