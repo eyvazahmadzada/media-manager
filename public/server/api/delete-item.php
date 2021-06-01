@@ -22,11 +22,29 @@
     if($data) {
         // Assign values
         $item->id = $data->id;
+        
+        // Get item query
+        if ($result = $item->getItem()) {
+            // Get row counts
+            $num = $result->rowCount();
+            // Check if the item exists
+            if ($num > 0) {
+                $row = $result->fetch();
+                extract($row);
+                
+                // If image exists
+                if ($img) {
+                    // Delete item image from build and public
+                    if (file_exists("../../img/" . $img)) { unlink("../../img/" . $img); }
+                    if (file_exists("../../../public/img/" . $img)) { unlink("../../../public/img/" . $img); }
+                }
 
-        // Delete item query
-        if($item->deleteItem()) {
-            echo json_encode(array('message' => 'Item Deleted'));
-        } else {
-            echo json_encode(array('error' => 'An Error Occured'));
+                // Delete item query
+                if ($item->deleteItem()) {
+                    echo json_encode(array('message' => 'Item Deleted'));
+                } else {
+                    echo json_encode(array('error' => 'An Error Occured'));
+                }
+            }
         }
     }

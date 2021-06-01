@@ -38,8 +38,7 @@ export default {
   },
   mounted: function() {
     // Dynamically add image or background color
-    this.$el.style.background =
-      this.img === "" ? "#E4B645" : `url('${window.location}img/${this.img}')`;
+    this.$el.style.background = this.img ? `url('${window.location}img/${this.img}')` : "#E4B645";
     this.updateProperties(this.x, this.y, this.width, this.height);
 
     // Delete item on double click

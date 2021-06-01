@@ -51,7 +51,7 @@ export default {
   mounted: function() {
     // Show info
     const infoEl = this.$refs.info;
-    setTimeout(() => infoEl.classList.add("show"));
+    // setTimeout(() => infoEl.classList.add("show"));
 
     // Hide info after some time
     setTimeout(() => infoEl.classList.remove("show"), 4000);
@@ -143,9 +143,6 @@ export default {
         const randPositions = this.generateRandomPosition(750, 500);
         newItem.x = randPositions.x;
         newItem.y = randPositions.y;
-
-        // Assign image name to the item
-        newItem.img = imageName;
       } else {
         // If position selected by user is not valid, don't create item
         if (!this.isPositionValid(e.clientX, e.clientY)) {
@@ -155,15 +152,13 @@ export default {
         // Assign selected position
         newItem.x = e.clientX;
         newItem.y = e.clientY;
-
-        // No image
-        newItem.img = "";
       }
 
       // Defaults for the item
       newItem.id = Math.random() * 10000;
       newItem.width = this.initialSize;
       newItem.height = this.initialSize;
+      newItem.img = imageName;
 
       // Send new item to server
       API.createItem(newItem).then((res) => {

@@ -20,13 +20,13 @@
     // Get row counts
     $num = $result->rowCount();
 
-    // Check if there are any item
+    // Check if there are any items
     if($num > 0) {
         // Item array
         $items_arr = array();
 
         while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            extract(($row));
+            extract($row);
 
             $item = array(
                 'id' => intval($id),

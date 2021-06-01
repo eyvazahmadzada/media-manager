@@ -31,6 +31,26 @@
             return $stmt;
         }
 
+        // Get single item
+        public function getItem() {
+            // Query
+            $query = 'SELECT * FROM ' . $this->table . ' WHERE id = :id';
+
+            // Prepare statement
+            $stmt = $this->connection->prepare($query);
+
+            // Security measures
+            $this->id = htmlspecialchars(strip_tags($this->id));
+
+            //Bind params
+            $stmt->bindParam(':id', $this->id);
+
+            // Execute
+            $stmt->execute();
+
+            return $stmt;
+        }
+
         // Create Item
         public function createItem() {
             // Query
