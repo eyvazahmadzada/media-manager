@@ -51,7 +51,7 @@ export default {
   mounted: function() {
     // Show info
     const infoEl = this.$refs.info;
-    // setTimeout(() => infoEl.classList.add("show"));
+    setTimeout(() => infoEl.classList.add("show"));
 
     // Hide info after some time
     setTimeout(() => infoEl.classList.remove("show"), 4000);

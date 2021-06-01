@@ -1,8 +1,12 @@
-.DS_Store
+# Keep gitkeep
+!/**/.gitkeep
 
 # Build files
 /node_modules
 /build
+/public/img/*
+
+.DS_Store
 
 # local env files
 .env.local
