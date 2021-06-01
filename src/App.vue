@@ -10,23 +10,25 @@
 </template>
 
 <script>
-import Config from './views/Config';
-import Home from './views/Home';
+import Config from "./views/Config";
+import Home from "./views/Home";
 
 export default {
   components: { Home, Config },
   data: function() {
     return {
       isConnected: true
-    }
+    };
   },
-  name: 'App'
-}
+  name: "App"
+};
 </script>
 
 <!-- Styling with sass -->
-<style lang="scss" scoped>
-  #app {
-    font-family: Helvetica, Arial, sans-serif;
-  }
+<style lang="scss">
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  transform-origin: 0 0;
+  overflow: hidden;
+}
 </style>

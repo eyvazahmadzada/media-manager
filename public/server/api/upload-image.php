@@ -28,6 +28,9 @@
             // Check if file size is not too large
             if ($fileSize < ($maxSize * 1000)) {
                 move_uploaded_file($tempPath, $uploadPath . $fileName);
+                /* Since images uploaded to build directory will be gone in next build, 
+                we copy the image to public/img directory too */
+                copy($uploadPath . $fileName, "../../../public/img/" . $fileName);
                 echo json_encode(array('message' => 'Image Uploaded'));
             } else {
                 echo json_encode(array('error' => 'Uploaded file too large, max size: 5 MB'));
